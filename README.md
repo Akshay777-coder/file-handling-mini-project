@@ -3,32 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Management System - C++</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 40px;
-            background-color: #f9f9f9;
-        }
-        h1, h2, h3 {
-            color: #2c3e50;
-        }
-        code, pre {
-            background-color: #eee;
-            padding: 10px;
-            display: block;
-            overflow-x: auto;
-        }
-        ul {
-            margin-left: 20px;
-        }
-        .section {
-            background: #ffffff;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-radius: 6px;
-        }
-    </style>
 </head>
 <body>
 
