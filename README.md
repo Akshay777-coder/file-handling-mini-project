@@ -3,35 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Student Management System - C++</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        code, pre {
+            background-color: #eee;
+            padding: 10px;
+            display: block;
+            overflow-x: auto;
+        }
+        ul {
+            margin-left: 20px;
+        }
+        .section {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
 
 <h1>📘 Student Management System (C++)</h1>
 
+<div class="section">
+<h2>🔧 How to Compile and Run the Program (Windows)</h2>
+
+<h3>1. Install GCC Compiler</h3>
 <p>
-This project is a <strong>console-based Student Management System</strong> written in C++.
-It allows users to store, retrieve, update, delete, and display student records using
-<strong>file handling</strong>.
+Install <b>MinGW-w64</b> or <b>MSYS2</b> and add the <code>bin</code> directory to your system PATH.
 </p>
 
-<hr>
+<p>Verify installation:</p>
+<pre>g++ --version</pre>
 
-<h2>🧩 Features</h2>
+<h3>2. Save the File</h3>
+<p>Save the source code as:</p>
+<pre>student_management.cpp</pre>
+
+<h3>3. Compile the Code</h3>
+<pre>g++ student_management.cpp -o student_management</pre>
+
+<h3>4. Run the Program</h3>
+<pre>student_management</pre>
+</div>
+
+<div class="section">
+<h2>📌 Project Overview</h2>
+<p>
+This project is a <b>file-based Student Management System</b> written in C++.
+It allows users to:
+</p>
 <ul>
-    <li>Enroll new students</li>
-    <li>Avoid duplicate roll numbers</li>
-    <li>Search students by roll number</li>
-    <li>Update student details</li>
+    <li>Enroll students</li>
+    <li>Search student records</li>
+    <li>Update student information</li>
+    <li>Display all students</li>
     <li>Delete student records</li>
-    <li>Display all enrolled students</li>
-    <li>Persistent data storage using text files</li>
 </ul>
+<p>
+All records are stored persistently in a text file (<code>students.txt</code>).
+</p>
+</div>
 
-<hr>
+<div class="section">
+<h2>📂 Header Files Used</h2>
+<ul>
+    <li><code>&lt;iostream&gt;</code> – Input & output operations</li>
+    <li><code>&lt;fstream&gt;</code> – File handling</li>
+    <li><code>&lt;limits&gt;</code> – Input validation using stream limits</li>
+</ul>
+</div>
 
-<h2>🗂 Data Structure Used</h2>
-
-<h3>Student Structure</h3>
+<div class="section">
+<h2>🧱 Structure: Student</h2>
 <pre>
 struct Student {
     int roll;
@@ -40,158 +93,148 @@ struct Student {
     int sem;
 };
 </pre>
-
 <p>
-The <code>Student</code> structure groups all student-related data into a single unit.
-This makes file operations and data handling cleaner and more organized.
+The <b>Student</b> structure stores all student-related data as a single unit.
 </p>
+</div>
 
-<hr>
-
-<h2>📜 File Used</h2>
+<div class="section">
+<h2>📋 menu() Function</h2>
+<p>
+Displays the available operations to the user.
+</p>
 <ul>
-    <li><strong>students.txt</strong> → Stores all student records permanently</li>
-    <li><strong>temp.txt</strong> → Temporary file used during update, delete, and search operations</li>
+    <li>Enroll Student</li>
+    <li>Search Student</li>
+    <li>Update Student</li>
+    <li>Display Students</li>
+    <li>Delete Student</li>
+    <li>Exit</li>
 </ul>
+</div>
 
-<hr>
-
-<h2>📋 Function Explanations</h2>
-
-<h3>1️⃣ menu()</h3>
-<p>
-Displays the main menu options for the user.
-This improves readability and provides a user-friendly interface.
-</p>
-
-<hr>
-
-<h3>2️⃣ rollExists(int roll)</h3>
+<div class="section">
+<h2>🔍 rollExists(int roll)</h2>
 <p>
 Checks whether a roll number already exists in <code>students.txt</code>.
 </p>
-
+<p>
+<b>Purpose:</b> Prevent duplicate roll numbers during enrollment.
+</p>
 <ul>
-    <li>Prevents duplicate student enrollment</li>
-    <li>Reads records one by one from the file</li>
-    <li>Returns <code>true</code> if roll exists, otherwise <code>false</code></li>
+    <li>Reads file using <code>ifstream</code></li>
+    <li>Returns <b>true</b> if roll is found</li>
+    <li>Returns <b>false</b> if file does not exist or roll is not found</li>
 </ul>
+</div>
 
-<hr>
-
-<h3>3️⃣ enrollStudent()</h3>
+<div class="section">
+<h2>➕ enrollStudent()</h2>
 <p>
 Adds a new student record to the file.
 </p>
-
 <ul>
-    <li>Takes input for roll, name, branch, and semester</li>
-    <li>Validates input using <code>cin.fail()</code></li>
-    <li>Uses <code>rollExists()</code> to prevent duplicate roll numbers</li>
-    <li>Appends data to <code>students.txt</code></li>
+    <li>Validates numeric input using <code>cin.fail()</code></li>
+    <li>Checks duplicate roll numbers</li>
+    <li>Appends data to the file</li>
 </ul>
-
-<hr>
-
-<h3>4️⃣ searchStudent()</h3>
 <p>
-Searches for a student using roll number.
+If invalid input is detected, input buffer is cleared and enrollment is cancelled.
 </p>
+</div>
 
+<div class="section">
+<h2>🔎 searchStudent()</h2>
+<p>
+Searches for a student by roll number.
+</p>
 <ul>
-    <li>Reads from <code>students.txt</code></li>
-    <li>Displays student data if found</li>
-    <li>Uses a temporary file to safely rewrite data</li>
+    <li>Reads data from file</li>
+    <li>Displays student if found</li>
+    <li>Uses a temporary file for safe rewriting</li>
 </ul>
+</div>
 
-<hr>
-
-<h3>5️⃣ updateStudent()</h3>
+<div class="section">
+<h2>✏️ updateStudent()</h2>
 <p>
-Updates an existing student's information.
+Updates the details of an existing student.
 </p>
-
 <ul>
-    <li>Searches by roll number</li>
-    <li>Allows updating roll, name, branch, and semester</li>
-    <li>Uses file replacement technique (temp file)</li>
+    <li>Asks for old roll number</li>
+    <li>Allows updating all student fields</li>
+    <li>Uses temporary file method</li>
 </ul>
+</div>
 
-<hr>
-
-<h3>6️⃣ displayStudent()</h3>
+<div class="section">
+<h2>📊 displayStudent()</h2>
 <p>
-Displays all enrolled students in a tabular format.
+Displays all students in tabular format.
 </p>
-
 <ul>
     <li>Reads all records from file</li>
-    <li>Prints formatted output to console</li>
+    <li>Prints formatted output</li>
 </ul>
+</div>
 
-<hr>
-
-<h3>7️⃣ deleteStudent()</h3>
+<div class="section">
+<h2>🗑️ deleteStudent()</h2>
 <p>
-Deletes a student record based on roll number.
+Deletes a student record using roll number.
 </p>
-
 <ul>
-    <li>Asks for confirmation before deletion</li>
-    <li>Rewrites file excluding the selected student</li>
+    <li>Asks for confirmation (<code>'y'</code>)</li>
+    <li>Skips the record to be deleted</li>
+    <li>Uses temp file replacement technique</li>
 </ul>
+</div>
 
-<hr>
-
-<h3>8️⃣ main()</h3>
-<p>
-Controls the entire application flow.
-</p>
-
+<div class="section">
+<h2>🧠 Error Handling</h2>
 <ul>
-    <li>Uses a <code>do-while</code> loop to keep program running</li>
-    <li>Uses <code>switch-case</code> for menu navigation</li>
+    <li><code>cin.fail()</code> detects invalid input</li>
+    <li><code>cin.clear()</code> resets input stream</li>
+    <li><code>cin.ignore()</code> clears garbage input</li>
+    <li>File open failure is handled safely</li>
+</ul>
+</div>
+
+<div class="section">
+<h2>🔄 Main Function</h2>
+<p>
+Controls the program using a <b>do-while loop</b> and <b>switch-case</b>.
+</p>
+<ul>
+    <li>Calls appropriate functions based on user choice</li>
     <li>Handles invalid input gracefully</li>
-    <li>Cleans garbage entries (roll = 0)</li>
+    <li>Cleans corrupted records (roll = 0)</li>
 </ul>
+</div>
 
-<hr>
-
-<h2>🧠 Key Concepts Used</h2>
+<div class="section">
+<h2>🔑 Key Concepts Used</h2>
 <ul>
-    <li>Structures (<code>struct</code>)</li>
-    <li>File Handling (<code>ifstream</code>, <code>ofstream</code>)</li>
-    <li>Input Validation (<code>cin.fail()</code>)</li>
-    <li>Temporary File Technique</li>
-    <li>Switch-Case Control Flow</li>
-    <li>Looping (<code>do-while</code>)</li>
-    <li>Data Persistence</li>
+    <li>Structures</li>
+    <li>File Handling</li>
+    <li>Input Validation</li>
+    <li>Switch Case</li>
+    <li>Functions</li>
+    <li>Temporary File Replacement</li>
+    <li>Error Handling</li>
 </ul>
+</div>
 
-<hr>
-
-<h2>🚀 Future Improvements</h2>
+<div class="section">
+<h2>🚀 Possible Future Improvements</h2>
 <ul>
-    <li>Use <strong>CSV or JSON</strong> format instead of plain text</li>
-    <li>Add <strong>password-based authentication</strong></li>
-    <li>Replace text files with a <strong>database (SQLite / MySQL)</strong></li>
-    <li>Allow <strong>full names with spaces</strong> using <code>getline()</code></li>
-    <li>Improve UI using colors or GUI (Qt / SFML)</li>
-    <li>Implement sorting by roll, name, or semester</li>
-    <li>Use <strong>classes and OOP principles</strong></li>
-    <li>Add logging and backup functionality</li>
+    <li>Use binary files</li>
+    <li>Add password authentication</li>
+    <li>Use vectors instead of files</li>
+    <li>Improve UI formatting</li>
+    <li>Add search by name or branch</li>
 </ul>
-
-<hr>
-
-<h2>📌 Conclusion</h2>
-<p>
-This project demonstrates strong fundamentals of C++ programming, especially
-<strong>file handling, input validation, and structured data management</strong>.
-It is an excellent base for expanding into advanced systems or database-driven applications.
-</p>
-
-<p><strong>Author:</strong> Akshay</p>
+</div>
 
 </body>
 </html>
