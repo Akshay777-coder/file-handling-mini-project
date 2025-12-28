@@ -276,7 +276,8 @@ void deleteStudent(){
 }
 
 // Main function Runs a Switch to go through all the menu Functions    
-}int main(){
+}
+int main(){
     int choice;
     do{
         menu();
