@@ -246,12 +246,14 @@ void deleteStudent(){
         return;
     }
     char ch;
-    cout << "***Enter 'y' to confirf***" << endl;
+    cout << "Enter 'y' to confirf: ";
     cin >> ch;
     if(ch == 'y'){
-    }else{                                                                                                                                  return;
+        // Runs the rest of the function block
+    }else{
+        cout << "Deletion Cancelled !!" << endl;
+        return;
     }
-
     bool found = false;
 
     while(in >> s.roll >> s.name >> s.branch >> s.sem){
