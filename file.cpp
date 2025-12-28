@@ -31,7 +31,7 @@ bool rollExists(int roll){
     if(!in){
         return false; // file not present yet
     }
-    
+
     while(in >> s.roll >> s.name >> s.branch >> s.sem){
         if(s.roll == roll){
             in.close();
@@ -90,14 +90,14 @@ void searchStudent(){
     Student s;
     ifstream in("students.txt");
     ofstream out("temp.txt");
-    
+
     if(!in || !out){
         cout << "File Not Found !!" << endl;
     }
-    
+
     bool found = false;
     int roll;
-    
+
     cout << "Enter New Roll: ";
     cin >> roll;
 
@@ -146,7 +146,7 @@ void updateStudent(){
 
     bool found = false;
     int roll;
-    
+
     cout << "Enter Previous Roll: ";
     cin >> roll;
 
@@ -215,18 +215,66 @@ void displayStudent(){
     cout << "\n---------------------------------" << endl;
     cout << "Roll" << "\t" << "Name" << "\t" << "Branch" << "\t" << "Semeester" << endl;
     cout << "---------------------------------" << endl;
-    
+
     while(in >> s.roll >> s.name >> s.branch >> s.sem){
         cout << s.roll << "\t" << s.name << "\t" << s.branch << "\t" << s.sem << endl;
         out << s.roll << " " << s.name << " " << s.branch << " " << s.sem << endl;
     }
-    
+
     in.close();
     out.close();
 
     remove("students.txt");
     rename("temp.txt","students.txt");
-    
+}
+
+
+// deleteStudent removes an enrollment by Entering student roll no
+void deleteStudent(){
+    Student s;
+    ifstream in("students.txt");
+    ofstream out("temp.txt");
+
+    int roll;
+    cout << "Enter Roll to Delete: ";
+    cin >> roll;
+
+    if(cin.fail()){
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(),'\n');
+        cout << "Invalid Input!!" << endl;
+        return;
+    }
+    char ch;
+    cout << "***Enter 'y' to confirf***" << endl;
+    cin >> ch;
+    if(ch == 'y'){
+    }else{                                                                                                                                  return;
+    }
+
+    bool found = false;
+
+    while(in >> s.roll >> s.name >> s.branch >> s.sem){
+        if(s.roll != roll){
+            out << s.roll << " " << s.name << " " << s.branch << " " << s.sem << endl;
+        }else{
+            found = true;
+        }
+    }
+
+    in.close();
+    out.close();
+
+    remove("students.txt");
+    rename("temp.txt","students.txt");
+
+    if(found == true){
+        cout << "Record Deleted Successfully !!" << endl;
+    }else{
+        cout << "Student Not Found" << endl;
+    }
+}
+
 // Main function Runs a Switch to go through all the menu Functions    
 }int main(){
     int choice;
@@ -234,7 +282,7 @@ void displayStudent(){
         menu();
         cout << "Enter Your Choice: ";
         cin >> choice;
-        
+
         // if choice is a letter or a string it clears choice and assign it with 0... ending up running default block of switch
         if(cin.fail()){
             cin.clear();
@@ -264,7 +312,7 @@ void displayStudent(){
                 cout << "Invalid Input !!" << endl;
                 break;
         }
-        
+
         // This block is to Delete unwanted Garbage Student Enrollment with roll = 0... Created during Invalid Imputing!!
         {
             Student s;
