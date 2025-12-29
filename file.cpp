@@ -98,7 +98,7 @@ void searchStudent(){
     bool found = false;
     int roll;
 
-    cout << "Enter New Roll: ";
+    cout << "Enter Roll: ";
     cin >> roll;
 
     if(cin.fail()){
